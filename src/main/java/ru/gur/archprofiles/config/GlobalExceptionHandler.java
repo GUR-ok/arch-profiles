@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import ru.gur.archprofiles.exception.NotAuthorizedException;
 import ru.gur.archprofiles.exception.ProfileNotFoundException;
 
 @Slf4j
@@ -15,8 +16,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGlobalException(Exception exception, WebRequest request) {
         if (exception instanceof ProfileNotFoundException) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
+        } else if (exception instanceof NotAuthorizedException) {
+            return new ResponseEntity(exception.getMessage(), HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
