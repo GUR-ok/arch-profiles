@@ -6,7 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.gur.archprofiles.entity.ProfileEntity;
 import ru.gur.archprofiles.exception.ProfileNotFoundException;
 import ru.gur.archprofiles.persistance.ProfileRepository;
-import ru.gur.archprofiles.web.ProfileDto;
+import ru.gur.archprofiles.web.ProfileRequest;
+import ru.gur.archprofiles.web.ProfileResponse;
 
 import java.util.UUID;
 
@@ -33,18 +34,18 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     @Transactional
-    public void update(final UUID id, final ProfileDto profile) {
-//        ProfileEntity profileEntity = profileRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-//        profileEntity.setFullName(profile.getFullName());
-//        profileEntity.setCitizenship(profile.getCitizenship());
-//        profileEntity.setAge(profile.getAge());
+    public void update(final UUID id, final ProfileRequest profile) {
+        final ProfileEntity profileEntity = profileRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException("Profile not found!"));
+        profileEntity.setFullName(profile.getFullName());
+        profileEntity.setAge(profile.getAge());
     }
 
     @Override
-    public ProfileDto read(final UUID id) {
-        final ProfileEntity profileEntity = profileRepository.findById(id).orElseThrow(ProfileNotFoundException::new);
+    public ProfileResponse read(final UUID id) {
+        final ProfileEntity profileEntity = profileRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException("Profile not found!"));
 
-        return ProfileDto.builder()
+        return ProfileResponse.builder()
+                .email(profileEntity.getEmail())
                 .age(profileEntity.getAge())
                 .fullName(profileEntity.getFullName())
                 .build();

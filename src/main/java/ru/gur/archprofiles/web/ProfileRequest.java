@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProfileDto {
+public class ProfileRequest {
 
     @NotBlank
     private String fullName;
