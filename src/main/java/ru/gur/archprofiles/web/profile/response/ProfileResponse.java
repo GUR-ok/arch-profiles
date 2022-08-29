@@ -1,4 +1,4 @@
-package ru.gur.archprofiles.web;
+package ru.gur.archprofiles.web.profile.response;
 
 import lombok.Builder;
 import lombok.Data;

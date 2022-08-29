@@ -1,8 +1,7 @@
-package ru.gur.archprofiles.web;
+package ru.gur.archprofiles.web.profile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
@@ -15,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gur.archprofiles.exception.NotAuthorizedException;
-import ru.gur.archprofiles.service.ProfileService;
+import ru.gur.archprofiles.service.profile.ProfileService;
+import ru.gur.archprofiles.web.profile.request.ProfileRequest;
+import ru.gur.archprofiles.web.profile.response.ProfileResponse;
 
 import java.util.Base64;
 import java.util.HashMap;

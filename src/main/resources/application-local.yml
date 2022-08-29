@@ -1,6 +1,7 @@
 server:
   servlet:
     context-path: /
+  # http://localhost:8083/swagger-ui.html
   port: 8083
 
 management:
@@ -38,3 +39,7 @@ logging:
     root: INFO
     org.springframework: INFO
     ru.gur.arch: DEBUG
+
+kafka:
+  bootstrapAddress: localhost:9091
+  groupId: group1

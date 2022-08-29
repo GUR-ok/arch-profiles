@@ -1,4 +1,4 @@
-package ru.gur.archprofiles.service;
+package ru.gur.archprofiles.service.profile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.gur.archprofiles.entity.ProfileEntity;
 import ru.gur.archprofiles.exception.ProfileNotFoundException;
 import ru.gur.archprofiles.persistance.ProfileRepository;
-import ru.gur.archprofiles.web.ProfileRequest;
-import ru.gur.archprofiles.web.ProfileResponse;
+import ru.gur.archprofiles.web.profile.request.ProfileRequest;
+import ru.gur.archprofiles.web.profile.response.ProfileResponse;
 
 import java.util.UUID;
 

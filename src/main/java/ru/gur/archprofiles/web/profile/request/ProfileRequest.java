@@ -1,4 +1,4 @@
-package ru.gur.archprofiles.web;
+package ru.gur.archprofiles.web.profile.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
