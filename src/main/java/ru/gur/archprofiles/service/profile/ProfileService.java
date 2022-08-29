@@ -1,7 +1,7 @@
-package ru.gur.archprofiles.service;
+package ru.gur.archprofiles.service.profile;
 
-import ru.gur.archprofiles.web.ProfileRequest;
-import ru.gur.archprofiles.web.ProfileResponse;
+import ru.gur.archprofiles.web.profile.request.ProfileRequest;
+import ru.gur.archprofiles.web.profile.response.ProfileResponse;
 
 import java.util.UUID;
 

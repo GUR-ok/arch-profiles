@@ -1,4 +1,4 @@
-package ru.gur.archprofiles.service;
+package ru.gur.archprofiles.service.kafka;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
