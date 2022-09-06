@@ -38,7 +38,7 @@ logging:
   level:
     root: INFO
     org.springframework: INFO
-    ru.gur.arch: DEBUG
+    ru.gur.archprofiles: DEBUG
 
 kafka:
   bootstrapAddress: localhost:9091

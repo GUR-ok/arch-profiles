@@ -6,25 +6,23 @@ secret:
   name: arch-profiles-secret
 deployment:
   app:
-    type: NodePort
     image: gurok/arch_profiles
     port: 8000
     replicas: 1
   db:
-    type: NodePort
     image: postgres:latest
     port: 5432
     replicas: 1
 service:
   app:
     name: arch-profiles-service
-    type: NodePort
+    type: ClusterIP
     protocol: TCP
     port: 9000
   db:
     name: postgresql-profiles-service
     host: "postgresql-profiles-service"
-    type: NodePort
+    type: ClusterIP
     port: 5432
     sport: "5432"
     dbname: arch_profiles_db
