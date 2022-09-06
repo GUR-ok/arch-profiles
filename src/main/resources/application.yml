@@ -25,6 +25,9 @@ spring:
     name: arch-profiles
   main:
     banner-mode: off
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
 
   jpa:
     hibernate:
@@ -47,7 +50,7 @@ logging:
   level:
     root: INFO
     org.springframework: INFO
-    ru.gur.arch: INFO
+    ru.gur.archprofiles: INFO
 
 kafka:
   bootstrapAddress: kafka:9094

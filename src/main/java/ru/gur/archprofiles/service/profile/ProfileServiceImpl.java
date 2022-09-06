@@ -1,6 +1,6 @@
 package ru.gur.archprofiles.service.profile;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gur.archprofiles.entity.ProfileEntity;
@@ -12,14 +12,10 @@ import ru.gur.archprofiles.web.profile.response.ProfileResponse;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ProfileServiceImpl implements ProfileService {
 
     private final ProfileRepository profileRepository;
-
-    @Autowired
-    public ProfileServiceImpl(ProfileRepository profileRepository) {
-        this.profileRepository = profileRepository;
-    }
 
     @Override
     @Transactional

@@ -1,6 +1,5 @@
 package ru.gur.archprofiles.web.profile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,10 +17,10 @@ import ru.gur.archprofiles.service.profile.ProfileService;
 import ru.gur.archprofiles.web.profile.request.ProfileRequest;
 import ru.gur.archprofiles.web.profile.response.ProfileResponse;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.Valid;
 import java.util.UUID;
+
+import static ru.gur.archprofiles.utils.TokenUtils.getProfileIdFromPayload;
 
 @Slf4j
 @RestController
@@ -39,7 +38,9 @@ public class ProfileController {
     }
 
     @PatchMapping(path = "/profiles/{id}")
-    public void update(@PathVariable(name = "id") UUID id, @RequestBody ProfileRequest profileRequest, @RequestHeader("x-jwt-token") String token) {
+    public void update(@PathVariable(name = "id") UUID id,
+                       @Valid @RequestBody ProfileRequest profileRequest,
+                       @RequestHeader("x-jwt-token") String token) {
         final UUID userProfileId = getProfileIdFromPayload(token);
         if (id.equals(userProfileId)) {
             profileService.update(id, profileRequest);
@@ -49,7 +50,8 @@ public class ProfileController {
     }
 
     @GetMapping(path = "/profiles/{id}")
-    public ProfileResponse read(@PathVariable(name = "id") UUID id, @RequestHeader(name = "x-jwt-token") String token) {
+    public ProfileResponse read(@PathVariable(name = "id") UUID id,
+                                @RequestHeader(name = "x-jwt-token") String token) {
         final UUID userProfileId = getProfileIdFromPayload(token);
         log.info("extracted profileId: " + userProfileId);
 
@@ -58,44 +60,5 @@ public class ProfileController {
         } else {
             throw new NotAuthorizedException("Unauthorized!");
         }
-    }
-
-    private UUID getProfileIdFromPayload(String tokenPayload) {
-        Assert.hasText(tokenPayload, "tokenPayload must not be blank");
-
-        log.info("auth tokenPayload: " + tokenPayload);
-
-        final Base64.Decoder decoder = Base64.getUrlDecoder();
-        final String payload = new String(decoder.decode(tokenPayload));
-
-        log.info("payload: " + payload);
-
-        try {
-            Map<String, Object> mapping = new ObjectMapper().readValue(payload, HashMap.class);
-            log.info("mapping: " + mapping);
-
-            return UUID.fromString(mapping.get("profileId").toString());
-        } catch (Exception e) {
-            //do nothing
-        }
-        return null;
-    }
-
-    private UUID getProfileIdFromOriginalToken(String token) {
-        Assert.hasText(token, "x-jwt-token must not be blank");
-
-        log.info("auth token: " + token);
-
-        final String[] chunks = token.split("\\.");
-        final Base64.Decoder decoder = Base64.getUrlDecoder();
-        final String payload = new String(decoder.decode(chunks[1]));
-
-        try {
-            Map<String, Object> mapping = new ObjectMapper().readValue(payload, HashMap.class);
-            return UUID.fromString(mapping.get("profileId").toString());
-        } catch (Exception e) {
-            //do nothing
-        }
-        return null;
     }
 }

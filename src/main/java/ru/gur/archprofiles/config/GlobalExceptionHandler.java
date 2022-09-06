@@ -15,6 +15,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGlobalException(Exception exception, WebRequest request) {
+        log.error(exception.getMessage());
         if (exception instanceof ProfileNotFoundException) {
             return new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
         } else if (exception instanceof NotAuthorizedException) {
