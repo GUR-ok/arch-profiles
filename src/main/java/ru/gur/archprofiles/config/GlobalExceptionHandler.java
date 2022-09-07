@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 import ru.gur.archprofiles.exception.NotAuthorizedException;
 import ru.gur.archprofiles.exception.ProfileNotFoundException;
 
@@ -13,14 +12,21 @@ import ru.gur.archprofiles.exception.ProfileNotFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleGlobalException(Exception exception, WebRequest request) {
+    @ExceptionHandler(ProfileNotFoundException.class)
+    public ResponseEntity<?> handleProfileNotFoundException(ProfileNotFoundException exception) {
         log.error(exception.getMessage());
-        if (exception instanceof ProfileNotFoundException) {
-            return new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
-        } else if (exception instanceof NotAuthorizedException) {
-            return new ResponseEntity(exception.getMessage(), HttpStatus.UNAUTHORIZED);
-        }
+        return new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NotAuthorizedException.class)
+    public ResponseEntity<?> handleNotAuthorizedException(NotAuthorizedException exception) {
+        log.error(exception.getMessage());
+        return new ResponseEntity(exception.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleGlobalException(Exception exception) {
+        log.error(exception.getMessage());
         return new ResponseEntity(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
