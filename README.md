@@ -9,7 +9,7 @@
    `kubectl get pods -n arch-gur`
 6) `helm install gorelov-kafka ./deployment/kafka/`
 
-Для локального поднятия кафки: `docker compose up`
+Для локального поднятия кафки: `docker-compose up`
 
 ---
 ### Очистка пространства:
