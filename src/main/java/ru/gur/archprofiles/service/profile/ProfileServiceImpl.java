@@ -34,6 +34,9 @@ public class ProfileServiceImpl implements ProfileService {
         final ProfileEntity profileEntity = profileRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException("Profile not found!"));
         profileEntity.setFullName(profile.getFullName());
         profileEntity.setAge(profile.getAge());
+        profileEntity.setFirstName(profile.getFirstName());
+        profileEntity.setLastName(profile.getLastName());
+        profileEntity.setPassportNumber(profile.getPassportNumber());
     }
 
     @Override
