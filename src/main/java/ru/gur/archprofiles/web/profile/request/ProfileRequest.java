@@ -17,4 +17,10 @@ public class ProfileRequest {
 
     @NotNull
     private Integer age;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String passportNumber;
 }

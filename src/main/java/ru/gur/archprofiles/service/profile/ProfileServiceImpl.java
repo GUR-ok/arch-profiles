@@ -44,6 +44,9 @@ public class ProfileServiceImpl implements ProfileService {
                 .email(profileEntity.getEmail())
                 .age(profileEntity.getAge())
                 .fullName(profileEntity.getFullName())
+                .firstName(profileEntity.getFirstName())
+                .lastName(profileEntity.getFullName())
+                .passportNumber(profileEntity.getPassportNumber())
                 .build();
     }
 }
