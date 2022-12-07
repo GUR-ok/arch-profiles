@@ -7,4 +7,5 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="18-08-2022--01-create-table-profile.xml" relativeToChangelogFile="true"/>
+    <include file="04-12-2022--01-add-columns-profile.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

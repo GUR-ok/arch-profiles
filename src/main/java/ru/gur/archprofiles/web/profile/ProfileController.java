@@ -17,7 +17,9 @@ import ru.gur.archprofiles.service.profile.ProfileService;
 import ru.gur.archprofiles.web.profile.request.ProfileRequest;
 import ru.gur.archprofiles.web.profile.response.ProfileResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Enumeration;
 import java.util.UUID;
 
 import static ru.gur.archprofiles.utils.TokenUtils.getProfileIdFromPayload;
@@ -50,8 +52,17 @@ public class ProfileController {
     }
 
     @GetMapping(path = "/profiles/{id}")
-    public ProfileResponse read(@PathVariable(name = "id") UUID id,
+    public ProfileResponse read(HttpServletRequest request,
+                                @PathVariable(name = "id") UUID id,
                                 @RequestHeader(name = "x-jwt-token") String token) {
+        System.out.println("!!! HEADERS");
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String) headerNames.nextElement();
+            String value = request.getHeader(key);
+            log.info(key + " " + value);
+        }
+
         final UUID userProfileId = getProfileIdFromPayload(token);
         log.info("extracted profileId: " + userProfileId);
 
@@ -60,5 +71,19 @@ public class ProfileController {
         } else {
             throw new NotAuthorizedException("Unauthorized!");
         }
+    }
+
+    @GetMapping(path = "/profiles/info/{id}")
+    public ProfileResponse getInfo(HttpServletRequest request,
+                                   @PathVariable(name = "id") UUID id) {
+        System.out.println("!!! HEADERS");
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String) headerNames.nextElement();
+            String value = request.getHeader(key);
+            log.info(key + " " + value);
+        }
+
+        return profileService.read(id);
     }
 }
