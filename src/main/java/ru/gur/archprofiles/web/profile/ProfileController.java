@@ -1,5 +1,6 @@
 package ru.gur.archprofiles.web.profile;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,7 @@ public class ProfileController {
 
     @PostMapping(path = "/profiles")
     @ResponseStatus(value = HttpStatus.CREATED)
+    @Operation(summary = "Создать профиль пользователя")
     public UUID create(@RequestBody String email) {
         Assert.hasText(email, "email must not be blank");
 
@@ -40,6 +42,7 @@ public class ProfileController {
     }
 
     @PatchMapping(path = "/profiles/{id}")
+    @Operation(summary = "Обновить профиль пользователя")
     public void update(@PathVariable(name = "id") UUID id,
                        @Valid @RequestBody ProfileRequest profileRequest,
                        @RequestHeader("x-jwt-token") String token) {
@@ -52,6 +55,7 @@ public class ProfileController {
     }
 
     @GetMapping(path = "/profiles/{id}")
+    @Operation(summary = "Получить данные профиль пользователя (с валидацией профиля в токене)")
     public ProfileResponse read(HttpServletRequest request,
                                 @PathVariable(name = "id") UUID id,
                                 @RequestHeader(name = "x-jwt-token") String token) {
@@ -74,6 +78,7 @@ public class ProfileController {
     }
 
     @GetMapping(path = "/profiles/info/{id}")
+    @Operation(summary = "Получить данные профиль пользователя (без валидации профиля в токене)")
     public ProfileResponse getInfo(HttpServletRequest request,
                                    @PathVariable(name = "id") UUID id) {
         System.out.println("!!! HEADERS");

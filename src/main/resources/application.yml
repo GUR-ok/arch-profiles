@@ -53,5 +53,6 @@ logging:
     ru.gur.archprofiles: INFO
 
 kafka:
+  enabled: true
   bootstrapAddress: kafka:9094
   groupId: group1
