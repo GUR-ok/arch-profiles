@@ -41,5 +41,6 @@ logging:
     ru.gur.archprofiles: DEBUG
 
 kafka:
+  enabled: false
   bootstrapAddress: localhost:9091
   groupId: group1
